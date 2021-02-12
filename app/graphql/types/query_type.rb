@@ -14,5 +14,13 @@ module Types
     def post(id:)
       Post.find(id)
     end
+
+    field :users, [Types::UserType], null: false do
+      User.all
+    end
+
+    field :user, Types::UserType, null: false do
+      argument :id, Int, required: false
+    end
   end
 end
