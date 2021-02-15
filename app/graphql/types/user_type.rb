@@ -5,6 +5,7 @@ module Types
     field :email, String, null: false
     field :password_digest, String, null: false
     field :role, Integer, null: true
+    field :posts, [Types::PostType], null: false
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
   end
