@@ -26,5 +26,10 @@ module Types
     def user(id:)
       User.find(id)
     end
+
+    field :video_clips, [Types::VideoClipType], null: false
+    def video_clips
+      VideoClip.all
+    end
   end
 end
