@@ -1,5 +1,8 @@
 module Mutations
   class CreateUser < BaseMutation
+    # class AuthProviderSignupData < Types::BaseInputObject
+    #   argument :credentials, Types::AuthProviderCredentialsInput, required: false
+    # end
     graphql_name 'CreateUser'
     field :user, Types::UserType, null: true
     field :result, Boolean, null: true
