@@ -2,22 +2,22 @@ module Mutations
   class SignInUser < BaseMutation
     null true
 
-    argument :email, String, required: false
-    argument :password, String, required: false
+    argument :credentials, Types::AuthProviderCredentialsInput, required: false
 
     field :token, String, null: true
     field :user, Types::UserType, null: true
 
-    # resolveメソッドはfieldで定義した
-    # TODO やり直し
-    def resolve(**args)
-      return unless args
+    def resolve(credentials: nil)
+      # basic validation
+      return unless credentials
 
-      user = User.find_by(email: args[:email])
+      user = User.find_by email: credentials[:email]
 
+      # ensures we have the correct user
       return unless user
-      return unless user.authenticate(args[:password])
+      return unless user.authenticate(credentials[:password])
 
+      # use Ruby on Rails - ActiveSupport::MessageEncryptor, to build a token
       crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
       token = crypt.encrypt_and_sign("user-id:#{ user.id }")
 
