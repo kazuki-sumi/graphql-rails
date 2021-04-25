@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_01_151701) do
+ActiveRecord::Schema.define(version: 2021_04_25_113529) do
 
   create_table "audio_clips", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "duration"
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(version: 2021_02_01_151701) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
+  end
+
+  create_table "links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "url"
+    t.text "description"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_links_on_user_id"
   end
 
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -57,4 +66,5 @@ ActiveRecord::Schema.define(version: 2021_02_01_151701) do
     t.index ["post_id"], name: "index_video_clips_on_post_id"
   end
 
+  add_foreign_key "links", "users"
 end
