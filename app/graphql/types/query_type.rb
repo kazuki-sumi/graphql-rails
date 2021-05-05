@@ -32,7 +32,7 @@ module Types
       VideoClip.all
     end
 
-    field :all_links, [LinkType], null: false
+    field :all_links, resolver: Resolvers::LinksSearch
 
     def all_links
       Link.all
